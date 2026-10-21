@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f7f3" />
+    <script>
+      // Applied before paint so a saved dark theme never flashes light.
+      ;(function () {
+        try {
+          var stored = window.localStorage.getItem('budgetzen-theme')
+          var dark =
+            stored === 'dark' ||
+            (stored !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+          var mode = dark ? 'dark' : 'light'
+          document.documentElement.dataset.theme = mode
+          document.documentElement.style.colorScheme = mode
+          var meta = document.querySelector('meta[name="theme-color"]')
+          if (meta) meta.setAttribute('content', dark ? '#12161a' : '#f7f7f3')
+        } catch (error) {
+          document.documentElement.dataset.theme = 'light'
+        }
+      })()
+    </script>
+    <meta
+      name="description"
+      content="BudgetZen — gérez vos revenus, dépenses, budgets et objectifs d’épargne en toute confidentialité."
+    />
+    <title>BudgetZen — Budget personnel</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

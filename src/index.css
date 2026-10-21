@@ -1,0 +1,132 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-canvas: #f7f7f3;
+  --color-surface: #ffffff;
+  --color-ink: #23272b;
+  --color-muted: #68707a;
+  --color-line: #e4e4dd;
+  --color-line-strong: #cfcfc5;
+  --color-income: #1f7a4d;
+  --color-income-soft: #e8f3ed;
+  --color-expense: #ac463d;
+  --color-expense-soft: #faece9;
+  --color-accent: #2c5f73;
+  --color-accent-soft: #e9f1f4;
+  --color-accent-soft-hover: #dce9ee;
+  --color-accent-solid: #2c5f73;
+  --color-accent-solid-hover: #24505f;
+  --color-accent-solid-active: #1e4552;
+  --color-expense-solid: #ac463d;
+  --color-expense-solid-hover: #963b33;
+  --color-track: #ecece5;
+  --color-warn: #a86a16;
+  --color-warn-soft: #fbf1df;
+  --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --radius-card: 0.875rem;
+}
+
+/*
+ * Thème sombre : les mêmes jetons sémantiques sont redéfinis sur <html data-theme="dark">.
+ * Les utilitaires Tailwind référencent var(--color-*), donc toute l'interface suit sans
+ * duplication de classes. `accent-solid` reste la variante « fond coloré » pour garder
+ * un texte blanc lisible, tandis que `accent` devient plus clair pour le texte.
+ */
+[data-theme='dark'] {
+  --color-canvas: #12161a;
+  --color-surface: #1a2025;
+  --color-ink: #e9eef2;
+  --color-muted: #9aa5af;
+  --color-line: #2b333a;
+  --color-line-strong: #3d474f;
+  --color-income: #5cc492;
+  --color-income-soft: #162e25;
+  --color-expense: #e5887f;
+  --color-expense-soft: #35211f;
+  --color-accent: #7fb9cf;
+  --color-accent-soft: #17303a;
+  --color-accent-soft-hover: #1f3f4b;
+  --color-accent-solid: #2f7188;
+  --color-accent-solid-hover: #38849e;
+  --color-accent-solid-active: #28637a;
+  --color-expense-solid: #b3493f;
+  --color-expense-solid-hover: #c4554a;
+  --color-track: #2b333a;
+  --color-warn: #e0aa55;
+  --color-warn-soft: #33270f;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-canvas font-sans text-ink antialiased;
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-accent) 22%, transparent);
+  }
+
+  html {
+    color-scheme: light;
+  }
+
+  html[data-theme='dark'] {
+    color-scheme: dark;
+  }
+
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .card-shadow {
+    box-shadow: 0 1px 2px rgb(35 39 43 / 0.04);
+  }
+
+  [data-theme='dark'] .card-shadow {
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.35);
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
