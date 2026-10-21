@@ -9,6 +9,7 @@ Application web de gestion de budget personnel, en français, en euros, pensée 
 - Fuseau : `Europe/Paris` (fixe pour cette version)
 - Pages : Tableau de bord, Transactions, Catégories, Budgets, Épargne, Récurrences, Rapports, Paramètres
 - Thèmes : clair et sombre, avec bascule instantanée et mémorisation locale
+- En ligne : <https://yaopaulandr-creator.github.io/Budget-Zen/>
 
 > **Vous découvrez l’application ?** Le [guide d’utilisation](GUIDE.md) détaille chaque écran pas à pas, de la première ouverture à la restauration d’une sauvegarde.
 
@@ -252,6 +253,8 @@ Non couvert par des tests automatisés : parcours Playwright de bout en bout, au
 
 ## 10. Déploiement
 
+**En ligne : <https://yaopaulandr-creator.github.io/Budget-Zen/>** — publié automatiquement par GitHub Pages à chaque push sur `main`.
+
 L'application est un site statique.
 
 ```bash
@@ -260,6 +263,16 @@ npm run build
 ```
 
 Le contenu de `dist/` peut être servi par n'importe quel hébergeur statique (Netlify, Vercel, GitHub Pages, Cloudflare Pages, nginx…). Le routage utilise `HashRouter`, donc **aucune règle de réécriture serveur n'est nécessaire**.
+
+### GitHub Pages
+
+Le workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) installe les dépendances, exécute `typecheck` et les tests, construit le site puis publie `dist/` via l'artefact Pages. Il s'exécute à chaque push sur `main` ou manuellement depuis l'onglet *Actions*.
+
+Un site de projet GitHub Pages est servi sous `/<dépôt>/` : le workflow passe donc `PAGES_BASE=/Budget-Zen/`, que `vite.config.ts` utilise comme `base`. En local, sans cette variable, l'application reste servie à la racine (`http://localhost:5173`). Pour reproduire un build Pages sur Windows :
+
+```bash
+MSYS_NO_PATHCONV=1 PAGES_BASE=/Budget-Zen/ npm run build
+```
 
 Recommandations : servir en **HTTPS**, envoyer `X-Content-Type-Options: nosniff`, et ne pas ajouter d'analytics ou de scripts tiers qui pourraient lire le DOM financier.
 
